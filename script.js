@@ -10,10 +10,9 @@ const qrPhone = document.getElementById('qrPhone');
 const eventList = document.getElementById('eventList');
 const body = document.body;
 
-// Admin mode
 let adminMode = false;
 
-// Check login
+// Check login on page load
 window.onload = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if(!user){
@@ -25,19 +24,22 @@ window.onload = () => {
 
 // Login
 loginBtn.onclick = () => {
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const password = document.getElementById('password').value;
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const password = document.getElementById('password').value.trim();
+
     if(name && email && phone && password){
-        const user = {name,email,phone};
+        const user = {name, email, phone};
         localStorage.setItem('user', JSON.stringify(user));
         loginPopup.style.display = 'none';
         loadEvents();
+    } else {
+        alert('Please fill all fields!');
     }
 }
 
-// QR Code
+// View QR
 viewQRBtn.onclick = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if(user){
@@ -46,11 +48,11 @@ viewQRBtn.onclick = () => {
         qrEmail.textContent = user.email;
         qrPhone.textContent = user.phone;
 
-        const qr = new QRious({
+        new QRious({
             element: document.getElementById('qrCode'),
-            value: `Name: ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}`,
+            value: JSON.stringify(user),
             size: 200,
-            background: '#111',
+            background: '#0a0f1a',
             foreground: '#0ff'
         });
     }
@@ -62,26 +64,25 @@ logoutBtn.onclick = () => {
     location.reload();
 }
 
-// Admin panel toggle
+// Admin Mode toggle
 document.addEventListener('keydown', (e) => {
-    if(e.altKey && e.key.toLowerCase() === 'z'){
+    if(e.altKey && e.code === 'KeyZ'){
         adminMode = !adminMode;
-        if(adminMode){
-            body.classList.add('admin-mode');
-        } else {
-            body.classList.remove('admin-mode');
-        }
+        if(adminMode) body.classList.add('admin-mode');
+        else body.classList.remove('admin-mode');
+        loadEvents();
     }
 });
 
-// Events system
+// Load events
 function loadEvents(){
     const events = JSON.parse(localStorage.getItem('events')) || [];
     eventList.innerHTML = '';
-    events.forEach((event, index) => {
+    events.forEach((event,index) => {
         const div = document.createElement('div');
         div.className = 'event-item';
         div.textContent = event;
+
         if(adminMode){
             const delBtn = document.createElement('span');
             delBtn.className = 'delete-btn';
@@ -89,6 +90,7 @@ function loadEvents(){
             delBtn.onclick = () => deleteEvent(index);
             div.appendChild(delBtn);
         }
+
         eventList.appendChild(div);
     });
 }
@@ -100,6 +102,7 @@ function deleteEvent(index){
     localStorage.setItem('events', JSON.stringify(events));
     loadEvents();
 }
+
 
 
 
