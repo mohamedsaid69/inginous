@@ -1,115 +1,105 @@
-/* General Styles */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0a0f1a;
-    color: #fff;
+// Elements
+const loginPopup = document.getElementById('loginPopup');
+const loginBtn = document.getElementById('loginBtn');
+const qrPopup = document.getElementById('qrPopup');
+const viewQRBtn = document.getElementById('viewQRBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const qrName = document.getElementById('qrName');
+const qrEmail = document.getElementById('qrEmail');
+const qrPhone = document.getElementById('qrPhone');
+const eventList = document.getElementById('eventList');
+const body = document.body;
+
+// Admin mode
+let adminMode = false;
+
+// Check login
+window.onload = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(!user){
+        loginPopup.style.display = 'flex';
+    } else {
+        loadEvents();
+    }
 }
 
-/* Navbar */
-.navbar {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0,0,0,0.8);
-    padding: 10px 20px;
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-}
-.navbar .logo {
-    font-size: 24px;
-    color: #0ff;
-    font-weight: bold;
-}
-.navbar .links a, .navbar .links button {
-    margin-left: 20px;
-    color: #0ff;
-    background: none;
-    border: 1px solid #0ff;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.navbar .links a:hover, .navbar .links button:hover {
-    background: #0ff;
-    color: #000;
+// Login
+loginBtn.onclick = () => {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const password = document.getElementById('password').value;
+    if(name && email && phone && password){
+        const user = {name,email,phone};
+        localStorage.setItem('user', JSON.stringify(user));
+        loginPopup.style.display = 'none';
+        loadEvents();
+    }
 }
 
-/* Popup */
-.popup {
-    display: none;
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(10px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
-}
-.popup-content {
-    background: #111;
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 0 20px #0ff;
-}
-.popup-content input {
-    display: block;
-    margin: 10px auto;
-    padding: 10px;
-    width: 80%;
-    border-radius: 5px;
-    border: none;
-}
-.popup-content button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    background: #0ff;
-    color: #000;
-    cursor: pointer;
-    margin-top: 10px;
+// QR Code
+viewQRBtn.onclick = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user){
+        qrPopup.style.display = 'flex';
+        qrName.textContent = user.name;
+        qrEmail.textContent = user.email;
+        qrPhone.textContent = user.phone;
+
+        const qr = new QRious({
+            element: document.getElementById('qrCode'),
+            value: `Name: ${user.name}\nEmail: ${user.email}\nPhone: ${user.phone}`,
+            size: 200,
+            background: '#111',
+            foreground: '#0ff'
+        });
+    }
 }
 
-/* QR Popup */
-#qrCode {
-    margin-bottom: 20px;
+// Logout
+logoutBtn.onclick = () => {
+    localStorage.removeItem('user');
+    location.reload();
 }
 
-/* Event List */
-#eventList {
-    margin: 20px;
-}
-.event-item {
-    background: #111;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-left: 3px solid #0ff;
-    position: relative;
-}
-.delete-btn {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #0ff;
-    cursor: pointer;
-    display: none;
+// Admin panel toggle
+document.addEventListener('keydown', (e) => {
+    if(e.altKey && e.key.toLowerCase() === 'z'){
+        adminMode = !adminMode;
+        if(adminMode){
+            body.classList.add('admin-mode');
+        } else {
+            body.classList.remove('admin-mode');
+        }
+    }
+});
+
+// Events system
+function loadEvents(){
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+    eventList.innerHTML = '';
+    events.forEach((event, index) => {
+        const div = document.createElement('div');
+        div.className = 'event-item';
+        div.textContent = event;
+        if(adminMode){
+            const delBtn = document.createElement('span');
+            delBtn.className = 'delete-btn';
+            delBtn.textContent = 'Delete';
+            delBtn.onclick = () => deleteEvent(index);
+            div.appendChild(delBtn);
+        }
+        eventList.appendChild(div);
+    });
 }
 
-/* Admin Mode */
-.admin-mode .delete-btn {
-    display: inline;
+// Delete event
+function deleteEvent(index){
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+    events.splice(index,1);
+    localStorage.setItem('events', JSON.stringify(events));
+    loadEvents();
 }
 
-/* Smooth scrolling */
-html {
-    scroll-behavior: smooth;
-}
 
 
