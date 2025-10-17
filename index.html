@@ -1,488 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Inginous — Events</title>
-<style>
-  :root{
-    --bg:#f7fbff; --card:#ffffff; --accent:#1766ff; --muted:#6b7280; --glass: rgba(255,255,255,0.6);
-    --radius:14px;
-  }
-  *{box-sizing:border-box;font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
-  body{margin:0;background:linear-gradient(180deg,#f3f9ff 0%, #ffffff 100%);color:#0f172a; -webkit-font-smoothing:antialiased;}
-  header{display:flex;align-items:center;justify-content:space-between;padding:28px 36px;}
-  .brand{display:flex;gap:16px;align-items:center;}
-  .logo{
-    width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#6fb1ff);
-    display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:20px;box-shadow:0 6px 20px rgba(23,102,255,0.18);
-  }
-  h1{margin:0;font-size:20px}
-  p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
-  .actions{display:flex;gap:12px;align-items:center;}
-  button{border:0;background:var(--accent);color:#fff;padding:10px 14px;border-radius:10px;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(23,102,255,0.12)}
-  button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(23,102,255,0.12);box-shadow:none;}
-  main{padding:24px 36px 80px;max-width:1100px;margin:0 auto;}
-  .hero{display:flex;gap:28px;align-items:center;margin-bottom:22px;}
-  .hero-card{flex:1;background:var(--card);border-radius:18px;padding:22px;box-shadow:0 10px 30px rgba(2,6,23,0.06)}
-  .stats{display:flex;gap:12px;margin-top:12px;}
-  .stat{background:var(--glass);padding:10px;border-radius:10px;font-size:13px;color:var(--muted)}
-  .events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin-top:20px;}
-  .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 8px 24px rgba(2,6,23,0.04);display:flex;flex-direction:column;gap:10px;}
-  .card h3{margin:0;font-size:16px}
-  .meta{font-size:13px;color:var(--muted)}
-  .card .row{display:flex;justify-content:space-between;align-items:center;gap:8px}
-  .tag{background:rgba(23,102,255,0.08);color:var(--accent);padding:6px 8px;border-radius:999px;font-size:12px;font-weight:600}
-  .btns{display:flex;gap:8px}
-  .btn{padding:8px 10px;border-radius:8px;border:0;background:#eef6ff;color:var(--accent);font-weight:700;cursor:pointer}
-  .btn.secondary{background:#f2f4f7;color:#334155}
-  footer{padding:30px 36px;text-align:center;color:var(--muted)}
-  /* modal */
-  .modal-back{position:fixed;inset:0;background:rgba(2,6,23,0.45);display:none;align-items:center;justify-content:center;padding:24px;z-index:50;}
-  .modal{background:var(--card);max-width:720px;width:100%;border-radius:12px;padding:18px;box-shadow:0 20px 50px rgba(2,6,23,0.3)}
-  .modal .top{display:flex;justify-content:space-between;align-items:center}
-  .form-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
-  input[type=text],input[type=datetime-local],textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef9;background:#fbfdff}
-  textarea{min-height:110px;resize:vertical}
-  .small{font-size:13px;color:var(--muted)}
-  .flex{display:flex;gap:10px}
-  .right{margin-left:auto}
-  .muted{color:var(--muted);font-size:13px}
-  .pill{padding:6px 10px;border-radius:999px;background:#f8fafc;color:#0f172a;font-weight:700}
-  .controls{display:flex;gap:12px;align-items:center;margin-top:12px}
-  .importExport{display:flex;gap:8px}
-  @media (max-width:720px){
-    header{padding:16px}
-    main{padding:12px}
-    .hero{flex-direction:column;align-items:stretch}
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inginous | Engineering Team</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="brand">
-      <div class="logo">IG</div>
-      <div>
-        <h1>Inginous</h1>
-        <p class="lead">Engineering team — building technical & non-technical skills, one event at a time.</p>
-      </div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <img src="inginous-logo.png" alt="Inginous Logo" class="logo" />
+      <span class="brand">Inginous</span>
     </div>
-    <div class="actions">
-      <button id="addEventBtn">Add Event (Admin)</button>
-      <button class="ghost" id="exportBtn">Export</button>
-      <button class="ghost" id="importBtn">Import</button>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#events">Events</a>
+      <a href="#contact">Contact</a>
     </div>
-  </header>
+  </nav>
 
-  <main>
-    <section class="hero">
-      <div class="hero-card">
-        <h2>Welcome to Inginous</h2>
-        <p class="muted">We host workshops, talks, and hands-on sessions for both technical and soft skills. Browse upcoming events below or — if you're an admin — add a new event.</p>
-        <div class="stats" style="margin-top:12px;">
-          <div class="stat">Events: <strong id="countAll">0</strong></div>
-          <div class="stat">Upcoming: <strong id="countUpcoming">0</strong></div>
-          <div class="stat">Past: <strong id="countPast">0</strong></div>
-        </div>
-      </div>
-    </section>
+  <!-- Hero -->
+  <section id="hero">
+    <h1>Welcome to Inginous</h1>
+    <p>An engineering team focused on both technical and non-technical skills — here to help you grow.</p>
+  </section>
 
-    <section>
-      <h3 style="margin:8px 6px 6px 6px">Events</h3>
-      <div id="eventsGrid" class="events-grid" aria-live="polite"></div>
-    </section>
-  </main>
+  <!-- About -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>
+      Inginous is a community of passionate engineers combining creativity and technical expertise.
+      We organize events, workshops, and projects that enhance both hard and soft skills.
+    </p>
+  </section>
 
-  <div class="modal-back" id="modalBack" role="dialog" aria-modal="true">
-    <div class="modal" id="modal">
-      <!-- modal content injected by JS -->
-    </div>
-  </div>
+  <!-- Events -->
+  <section id="events">
+    <h2>Our Events</h2>
+    <div id="event-list" class="event-list"></div>
+  </section>
 
-  <footer>
-    <div>Made with ❤️ for Inginous · Local demo uses <em>localStorage</em>. Host on a static server to share across the web.</div>
+  <!-- Add Event (Admin Only) -->
+  <section id="add-event-section" class="hidden">
+    <h2>Add New Event</h2>
+    <form id="event-form">
+      <input type="text" id="event-title" placeholder="Event Title" required />
+      <textarea id="event-description" placeholder="Event Description" required></textarea>
+      <input type="date" id="event-date" required />
+      <button type="submit">Add Event</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact">
+    <p>© 2025 Inginous. All rights reserved.</p>
   </footer>
 
-<script>
-/*
-  Inginous single-file events site
-  - Admin password: "inginous-admin" (change below if desired)
-  - Events stored in localStorage key: "inginous_events"
-  - Shareable links embed the event JSON in the URL fragment: #event=<base64>
-  - QR image generated via Google Chart API (no extra library)
-*/
-
-const ADMIN_PASSWORD = "inginous-admin"; // change this for your site
-const STORAGE_KEY = "inginous_events";
-
-function uid(){ return 'e_'+Date.now()+'_'+Math.random().toString(36).slice(2,8); }
-
-function nowISOToLocal(iso){
-  try { return new Date(iso).toLocaleString(); } catch(e){ return iso; }
-}
-
-function loadEvents(){
-  const raw = localStorage.getItem(STORAGE_KEY);
-  if(!raw) return [];
-  try { return JSON.parse(raw) || []; } catch(e){ console.error(e); return []; }
-}
-function saveEvents(arr){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
-}
-
-function renderCounts(events){
-  const now = Date.now();
-  document.getElementById('countAll').innerText = events.length;
-  document.getElementById('countUpcoming').innerText = events.filter(ev => new Date(ev.datetime).getTime() > now).length;
-  document.getElementById('countPast').innerText = events.filter(ev => new Date(ev.datetime).getTime() <= now).length;
-}
-
-function renderEvents(){
-  const grid = document.getElementById('eventsGrid');
-  grid.innerHTML = '';
-  let events = loadEvents() || [];
-  // sort by datetime ascending
-  events.sort((a,b)=> new Date(a.datetime) - new Date(b.datetime));
-  renderCounts(events);
-  if(events.length === 0){
-    grid.innerHTML = '<div style="grid-column:1/-1;padding:18px;border-radius:12px;background:#fff;border:1px dashed #e6eef9;text-align:center;color:var(--muted)">No events yet. (Admin can add events.)</div>';
-    return;
-  }
-  events.forEach(ev=>{
-    const card = document.createElement('div'); card.className='card';
-    const dateText = new Date(ev.datetime).toLocaleString();
-    card.innerHTML = `
-      <div class="row">
-        <div>
-          <div style="display:flex;gap:10px;align-items:center">
-            <div class="tag">${ev.type || 'Event'}</div>
-            <h3>${escapeHtml(ev.title)}</h3>
-          </div>
-          <div class="meta">${escapeHtml(ev.location || 'Online')} · ${dateText}</div>
-        </div>
-      </div>
-      <div class="small">${escapeHtml(truncate(ev.description,120))}</div>
-      <div class="row" style="margin-top:8px;">
-        <div class="btns">
-          <button class="btn" onclick="viewEvent('${ev.id}')">View</button>
-          <button class="btn secondary" onclick="generateQuickShare(event, '${ev.id}')">Share / QR</button>
-        </div>
-        <div style="display:flex;gap:8px;">
-          <div class="muted" style="font-size:12px">${new Date(ev.createdAt).toLocaleDateString()}</div>
-          <div class="pill">${ev.visibility || 'Public'}</div>
-        </div>
-      </div>
-    `;
-    grid.appendChild(card);
-  });
-}
-
-function truncate(s,n){ return s.length>n? s.slice(0,n-1)+'…': s; }
-function escapeHtml(s){ if(!s) return ''; return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
-
-function openModal(contentHTML){
-  const back = document.getElementById('modalBack');
-  const modal = document.getElementById('modal');
-  modal.innerHTML = contentHTML;
-  back.style.display = 'flex';
-  // set close handlers
-  back.onclick = (e)=>{ if(e.target===back) closeModal(); }
-  const closeBtn = modal.querySelector('[data-close]');
-  if(closeBtn) closeBtn.onclick = closeModal;
-}
-function closeModal(){
-  document.getElementById('modalBack').style.display = 'none';
-}
-
-document.getElementById('addEventBtn').addEventListener('click', ()=>{
-  const pass = prompt('Admin password required to add events:');
-  if(pass !== ADMIN_PASSWORD){
-    alert('Wrong password or cancelled.');
-    return;
-  }
-  showAddEventForm();
-});
-
-function showAddEventForm(prefill){
-  const html = `
-    <div class="top">
-      <h3>Add New Event</h3>
-      <div><button data-close class="ghost">Close</button></div>
-    </div>
-    <div style="margin-top:12px">
-      <label>Title</label>
-      <input id="ev_title" type="text" placeholder="e.g., Intro to Embedded Systems" />
-      <div class="form-row">
-        <div style="flex:1">
-          <label>Date & time</label>
-          <input id="ev_datetime" type="datetime-local" />
-        </div>
-        <div style="width:160px">
-          <label>Type</label>
-          <select id="ev_type">
-            <option>Workshop</option>
-            <option>Talk</option>
-            <option>Panel</option>
-            <option>Other</option>
-          </select>
-        </div>
-      </div>
-      <div style="margin-top:10px">
-        <label>Location</label>
-        <input id="ev_location" type="text" placeholder="Room / link / city" />
-      </div>
-      <div style="margin-top:10px">
-        <label>Description</label>
-        <textarea id="ev_description" placeholder="Short summary"></textarea>
-      </div>
-      <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-        <label style="margin:0">Visibility</label>
-        <select id="ev_visibility">
-          <option>Public</option>
-          <option>Members</option>
-          <option>Private</option>
-        </select>
-      </div>
-      <div class="controls">
-        <button id="saveEventBtn">Save event</button>
-        <button class="ghost" data-close>Cancel</button>
-        <div class="right muted">Events saved locally in your browser.</div>
-      </div>
-    </div>
-  `;
-  openModal(html);
-  // prefill if provided
-  if(prefill){
-    document.getElementById('ev_title').value = prefill.title || '';
-    document.getElementById('ev_datetime').value = prefill.datetime || '';
-    document.getElementById('ev_description').value = prefill.description || '';
-    document.getElementById('ev_location').value = prefill.location || '';
-    document.getElementById('ev_visibility').value = prefill.visibility || 'Public';
-    document.getElementById('ev_type').value = prefill.type || 'Workshop';
-  }
-  document.getElementById('saveEventBtn').onclick = ()=>{
-    const title = document.getElementById('ev_title').value.trim();
-    const datetime = document.getElementById('ev_datetime').value;
-    const description = document.getElementById('ev_description').value.trim();
-    const location = document.getElementById('ev_location').value.trim();
-    const visibility = document.getElementById('ev_visibility').value;
-    const type = document.getElementById('ev_type').value;
-    if(!title || !datetime){
-      alert('Please provide title and date/time.');
-      return;
-    }
-    const events = loadEvents();
-    const ev = {
-      id: uid(),
-      title, datetime, description, location, visibility, type,
-      createdAt: new Date().toISOString()
-    };
-    events.push(ev);
-    saveEvents(events);
-    closeModal();
-    renderEvents();
-  };
-}
-
-function viewEvent(id){
-  const events = loadEvents();
-  const ev = events.find(x=>x.id===id);
-  if(!ev){ alert('Event not found'); return; }
-  // build shareable URL with base64-encoded JSON in fragment
-  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(ev))));
-  const url = location.origin + location.pathname + '#event=' + encoded;
-  const qrUrl = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' + encodeURIComponent(url);
-
-  const html = `
-    <div class="top">
-      <div>
-        <h3>${escapeHtml(ev.title)}</h3>
-        <div class="muted">${nowISOToLocal(ev.datetime)} · ${escapeHtml(ev.location||'Online')}</div>
-      </div>
-      <div><button data-close class="ghost">Close</button></div>
-    </div>
-    <div style="margin-top:12px">
-      <p class="small">${escapeHtml(ev.description)}</p>
-      <div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap">
-        <div style="flex:1;min-width:220px">
-          <div class="muted">Type</div>
-          <div style="margin-top:6px"><strong>${escapeHtml(ev.type)}</strong></div>
-        </div>
-        <div style="min-width:220px">
-          <div class="muted">Visibility</div>
-          <div style="margin-top:6px"><strong>${escapeHtml(ev.visibility)}</strong></div>
-        </div>
-        <div style="min-width:220px">
-          <div class="muted">Created</div>
-          <div style="margin-top:6px">${new Date(ev.createdAt).toLocaleString()}</div>
-        </div>
-      </div>
-
-      <div style="display:flex;gap:12px;margin-top:16px;align-items:center;flex-wrap:wrap">
-        <div>
-          <img id="qrImg" src="${qrUrl}" alt="QR for event" style="width:160px;height:160px;border-radius:8px;box-shadow:0 10px 30px rgba(2,6,23,0.06)">
-        </div>
-        <div style="display:flex;flex-direction:column;gap:8px">
-          <div><strong>Shareable link</strong></div>
-          <input id="shareLinkInput" type="text" readonly value="${url}" style="padding:8px;border-radius:8px;border:1px solid #e6eef9;width:420px;min-width:200px" />
-          <div style="display:flex;gap:8px">
-            <button onclick="copyShareLink()">Copy link</button>
-            <a id="downloadQR" href="${qrUrl}" target="_blank" download="event-qr.png"><button class="ghost">Open / Download QR</button></a>
-            <button class="ghost" onclick="showEditEvent('${ev.id}')">Edit (Admin)</button>
-            <button class="ghost" onclick="deleteEventConfirm('${ev.id}')">Delete (Admin)</button>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  `;
-  openModal(html);
-}
-
-function copyShareLink(){
-  const input = document.getElementById('shareLinkInput');
-  input.select();
-  navigator.clipboard?.writeText(input.value).then(()=> alert('Link copied to clipboard'), ()=> alert('Copy failed — select and copy manually.'));
-}
-
-function generateQuickShare(ev, id){
-  // used from card button: ev is event object?  We'll find by id
-  if(typeof ev === 'object' && ev.preventDefault){ ev = null; } // if called from click event
-  const events = loadEvents();
-  const e = events.find(x=>x.id===id);
-  if(!e) return alert('Event not found');
-  viewEvent(id);
-}
-
-function showEditEvent(id){
-  const pass = prompt('Admin password required to edit events:');
-  if(pass !== ADMIN_PASSWORD){ alert('Wrong password'); return; }
-  const events = loadEvents();
-  const ev = events.find(x=>x.id===id);
-  if(!ev) return alert('Not found');
-  // open add form with prefill and on save overwrite
-  showAddEventForm(ev);
-  // modify save handler to update existing
-  document.getElementById('saveEventBtn').onclick = ()=>{
-    const title = document.getElementById('ev_title').value.trim();
-    const datetime = document.getElementById('ev_datetime').value;
-    const description = document.getElementById('ev_description').value.trim();
-    const location = document.getElementById('ev_location').value.trim();
-    const visibility = document.getElementById('ev_visibility').value;
-    const type = document.getElementById('ev_type').value;
-    if(!title || !datetime){ alert('Please provide title and date/time.'); return; }
-    ev.title = title; ev.datetime = datetime; ev.description = description;
-    ev.location = location; ev.visibility = visibility; ev.type = type;
-    saveEvents(events);
-    closeModal(); renderEvents();
-  };
-}
-
-function deleteEventConfirm(id){
-  const pass = prompt('Admin password required to delete events:');
-  if(pass !== ADMIN_PASSWORD){ alert('Wrong password'); return; }
-  if(!confirm('Delete this event? This action cannot be undone.')) return;
-  let events = loadEvents();
-  events = events.filter(x=>x.id!==id);
-  saveEvents(events); renderEvents(); closeModal();
-}
-
-// Import / Export
-document.getElementById('exportBtn').addEventListener('click', ()=>{
-  const events = loadEvents();
-  const data = JSON.stringify(events, null, 2);
-  const blob = new Blob([data], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url; a.download = 'inginous-events.json'; a.click();
-  URL.revokeObjectURL(url);
-});
-
-document.getElementById('importBtn').addEventListener('click', ()=>{
-  const pass = prompt('Admin password required to import events:');
-  if(pass !== ADMIN_PASSWORD){ alert('Wrong password'); return; }
-  const inp = document.createElement('input'); inp.type='file'; inp.accept='.json,application/json';
-  inp.onchange = (e)=>{
-    const f = e.target.files[0];
-    if(!f) return;
-    const reader = new FileReader();
-    reader.onload = (ev)=>{
-      try{
-        const parsed = JSON.parse(ev.target.result);
-        if(!Array.isArray(parsed)) throw new Error('Invalid format');
-        // give new ids if missing
-        parsed.forEach(p=>{ if(!p.id) p.id = uid(); if(!p.createdAt) p.createdAt = new Date().toISOString(); });
-        saveEvents(parsed);
-        alert('Imported '+parsed.length+' events.'); renderEvents();
-      }catch(err){
-        alert('Import failed: '+err.message);
-      }
-    };
-    reader.readAsText(f);
-  };
-  inp.click();
-});
-
-// when page loaded with #event=<base64>, open it
-function handleFragment(){
-  const frag = location.hash || '';
-  if(!frag.startsWith('#event=')) return;
-  const encoded = frag.replace('#event=','');
-  try{
-    const json = decodeURIComponent(escape(atob(encoded)));
-    const ev = JSON.parse(json);
-    // Show details in modal (without saving)
-    const tempId = 'temp_view';
-    const html = `
-      <div class="top">
-        <div>
-          <h3>${escapeHtml(ev.title)}</h3>
-          <div class="muted">${nowISOToLocal(ev.datetime)} · ${escapeHtml(ev.location||'Online')}</div>
-        </div>
-        <div><button data-close class="ghost">Close</button></div>
-      </div>
-      <div style="margin-top:12px">
-        <p class="small">${escapeHtml(ev.description)}</p>
-        <div style="margin-top:12px"><strong>Note:</strong> This event was opened from a shared link and is not (yet) stored in your browser's events list. Click <button class="ghost" onclick="importSingleEventFromFragment()">Save to my browser</button> to add it locally.</div>
-      </div>
-    `;
-    openModal(html);
-  }catch(e){
-    console.error('Invalid event in URL', e);
-  }
-}
-
-function importSingleEventFromFragment(){
-  const frag = location.hash || '';
-  if(!frag.startsWith('#event=')) return alert('No event in link');
-  try{
-    const encoded = frag.replace('#event=','');
-    const json = decodeURIComponent(escape(atob(encoded)));
-    const ev = JSON.parse(json);
-    // ensure id
-    ev.id = uid();
-    ev.createdAt = new Date().toISOString();
-    const events = loadEvents();
-    events.push(ev);
-    saveEvents(events);
-    closeModal(); renderEvents();
-    alert('Event saved locally.');
-  }catch(e){ alert('Failed to import event: '+e.message); }
-}
-
-// init
-renderEvents();
-handleFragment();
-
-// helpful: clear fragment when user closes modal
-document.getElementById('modalBack').addEventListener('click', (e)=>{
-  if(e.target.id === 'modalBack'){
-    if(location.hash.startsWith('#event=')){
-      history.replaceState('', document.title, location.pathname + location.search);
-    }
-  }
-});
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
+
