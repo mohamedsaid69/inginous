@@ -1,55 +1,102 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inginous v2.1 + v3 Features</title>
-<link rel="stylesheet" href="style.css">
-<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Inginous: Explore events and workshops for technical and soft skill development." />
+  <meta property="og:title" content="Inginous Events" />
+  <meta property="og:description" content="Join our sessions and grow your skills." />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" /> <!-- Add your favicon -->
+  <title>Inginous — Events</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- QRious (client-side QR generator) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js" defer></script>
 </head>
 <body>
+  <main> <!-- Wrap main content for semantics -->
+    <!-- Sticky navbar -->
+    <header class="navbar" role="banner">
+      <div class="nav-left">
+        <img src="inginous-logo.png" alt="Inginous logo" class="logo" />
+        <div class="brand">
+          <div class="title">Inginous</div>
+          <div id="userIdPill" class="user-pill" title="Your assigned ID (auto-generated)" aria-live="polite"></div>
+        </div>
+      </div>
+      <nav class="nav-right" aria-label="Main navigation">
+        <a href="#about">About</a>
+        <a href="#events">Events</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-<!-- Sticky Navbar -->
-<nav class="navbar">
-  <div class="logo">Inginous</div>
-  <button id="viewQRBtn" class="btn">View My QR</button>
-</nav>
+    <!-- Hero -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <h1>Welcome to Inginous</h1>
+        <p>Engineering team focused on technical & non-technical skills. Browse events, scan QR codes, and join our sessions.</p>
+      </div>
+    </section>
 
-<!-- User ID Pill -->
-<div id="userIdPill" class="user-pill"></div>
+    <!-- About -->
+    <section id="about" class="section">
+      <h2>About</h2>
+      <p>Inginous organizes workshops, talks and hands-on sessions to grow both technical and soft skills.</p>
+    </section>
 
-<!-- Events Grid -->
-<div id="eventsGrid"></div>
+    <!-- Events -->
+    <section id="events" class="section">
+      <h2>Events</h2>
+      <div id="eventsGrid" class="events-grid" aria-live="polite" aria-label="List of events"></div>
+    </section>
 
-<!-- Add Event Panel (hidden until admin) -->
-<div id="addEventSection" class="add-panel hidden">
-  <form id="eventForm">
-    <input id="ev_title" placeholder="Event Title" required>
-    <input id="ev_datetime" type="datetime-local" required>
-    <input id="ev_location" placeholder="Location">
-    <textarea id="ev_description" placeholder="Description"></textarea>
-    <button type="submit" class="btn">Add Event</button>
-    <button type="button" id="closeAdd" class="btn secondary">Close</button>
-    <button type="button" id="cancelAdd" class="btn secondary">Cancel</button>
-  </form>
-</div>
+    <!-- Add Event (admin-only; hidden by default) -->
+    <section id="addEventSection" class="modal-panel hidden">
+      <div class="panel">
+        <div class="panel-head">
+          <h3>Add New Event</h3>
+          <button id="closeAdd" class="ghost" aria-label="Close add event panel">Close</button>
+        </div>
+        <form id="eventForm" class="event-form">
+          <label for="ev_title">Title</label>
+          <input id="ev_title" type="text" placeholder="Event title" required />
+          
+          <label for="ev_datetime">Date & time</label>
+          <input id="ev_datetime" type="datetime-local" required />
+          
+          <label for="ev_location">Location</label>
+          <input id="ev_location" type="text" placeholder="Room / link / city" />
+          
+          <label for="ev_description">Description</label>
+          <textarea id="ev_description" placeholder="Short summary" rows="4"></textarea>
+          
+          <div class="form-row">
+            <button type="submit" class="primary">Save event</button>
+            <button type="button" id="cancelAdd" class="ghost" aria-label="Cancel adding event">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
-<!-- Overlay & Modal -->
-<div id="overlay" class="hidden"></div>
-<div id="modal" class="hidden"></div>
+    <!-- Blurred modal overlay (for login & event details) -->
+    <div id="overlay" class="overlay hidden" role="presentation"></div>
 
-<!-- QR Popup -->
-<div id="qrPopup" class="hidden">
-  <div class="popup-content">
-    <canvas id="qrCode"></canvas>
-    <p id="qrName">👤 Name:</p>
-    <p id="qrEmail">📧 Email:</p>
-    <p id="qrPhone">📞 Phone:</p>
-    <button id="logoutBtn" class="btn secondary">Logout</button>
-  </div>
-</div>
+    <!-- Login / Event modal container -->
+    <div id="modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <!-- Content dynamically injected by JS -->
+    </div>
+  </main>
 
-<script src="script.js"></script>
+  <!-- Footer -->
+  <footer id="contact" class="footer">
+    <div>© 2025 Inginous</div>
+  </footer>
+
+  <!-- App script -->
+  <script src="script.js"></script>
 </body>
 </html>
 
