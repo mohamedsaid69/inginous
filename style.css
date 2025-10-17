@@ -1,157 +1,85 @@
-/* General Body */
+/* --- Body & Navbar --- */
 body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #0a0f1a, #000);
-    color: #0ff;
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:#0a0f1a;
+  color:#fff;
 }
-
-/* Navbar */
 .navbar {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0,0,0,0.85);
-    padding: 12px 25px;
-    box-shadow: 0 0 25px #0ff;
-    backdrop-filter: blur(10px);
-    z-index: 1000;
+  position: sticky;
+  top:0;
+  background:#111;
+  padding:10px 20px;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
 }
-.navbar .logo {
-    font-size: 28px;
-    font-weight: bold;
-    text-shadow: 0 0 15px #0ff;
-}
-.navbar .links a, .navbar .links button {
-    margin-left: 20px;
-    color: #0ff;
-    background: rgba(0,0,0,0.3);
-    border: 1px solid #0ff;
-    padding: 8px 20px;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: bold;
-    text-shadow: 0 0 5px #0ff;
-    cursor: pointer;
-    transition: 0.3s;
-}
-.navbar .links a:hover, .navbar .links button:hover {
-    background: #0ff;
-    color: #000;
-    text-shadow: none;
+.navbar .logo { font-weight:bold; font-size:24px; }
+.navbar .btn { cursor:pointer; padding:6px 12px; border-radius:8px; }
+
+/* User Pill */
+.user-pill {
+  position:fixed;
+  top:60px; right:20px;
+  padding:6px 12px;
+  border-radius:12px;
+  background:#111;
+  border:1px solid #66fcf1;
+  color:#66fcf1;
 }
 
-/* Popups */
-.popup {
-    display: none;
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(12px);
-    justify-content: center;
-    align-items: center;
-    z-index: 1001;
+/* Event Cards */
+.card {
+  background:#111;
+  border-left:4px solid #66fcf1;
+  border-radius:10px;
+  padding:12px;
+  margin:12px auto;
+  max-width:600px;
 }
-.popup-content {
-    background: #0a0f1a;
-    padding: 45px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 0 35px #0ff;
+.card h3 { margin:0; }
+.card .small-muted { color:#888; font-size:0.85em; }
+
+/* Add Event Panel */
+.add-panel {
+  position:fixed;
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#111;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 0 20px #66fcf1;
+  z-index:1001;
 }
-.popup-content input {
-    display: block;
-    margin: 15px auto;
-    padding: 14px;
-    width: 80%;
-    border-radius: 12px;
-    border: none;
-    background: #111;
-    color: #0ff;
+.add-panel input, .add-panel textarea { width:100%; margin:6px 0; padding:8px; background:#222; border:1px solid #66fcf1; color:#fff; }
+.add-panel button { margin-top:6px; }
+
+/* Overlay & Modal */
+#overlay {
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.85);
+  display:none;
+  z-index:1000;
 }
-.popup-content button {
-    padding: 12px 25px;
-    border: none;
-    border-radius: 12px;
-    background: #0ff;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
-    box-shadow: 0 0 10px #0ff;
+#modal {
+  position:fixed; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  background:#111; padding:25px; border-radius:15px;
+  max-width:90%; max-height:90%; overflow-y:auto;
+  display:none; z-index:1001;
 }
 
-/* QR Code */
-#qrCode {
-    margin-bottom: 20px;
-    background: #0a0f1a;
-    border-radius: 10px;
+/* QR Popup */
+#qrPopup {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  background:#111; padding:20px; border-radius:15px;
+  display:none; z-index:1002; text-align:center;
 }
+#qrPopup canvas { margin-bottom:12px; }
+#qrPopup p { margin:4px 0; color:#66fcf1; }
+#qrPopup .btn.secondary { margin-top:10px; }
 
-/* Events Section */
-#events {
-    padding: 25px;
-}
-#eventList {
-    margin: 20px 0;
-}
-.event-item {
-    background: #111;
-    margin-bottom: 12px;
-    padding: 15px;
-    border-left: 4px solid #0ff;
-    border-radius: 10px;
-    position: relative;
-    box-shadow: 0 0 10px #0ff30;
-}
-
-/* Admin Controls */
-#adminControls {
-    display: none;
-    margin-top: 15px;
-}
-#adminControls input {
-    padding: 10px;
-    width: 60%;
-    border-radius: 8px;
-    border: none;
-    margin-right: 10px;
-    background: #111;
-    color: #0ff;
-}
-#adminControls button {
-    padding: 10px 20px;
-    border-radius: 8px;
-    border: none;
-    background: #0ff;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* Delete Button */
-.delete-btn {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    color: #0ff;
-    cursor: pointer;
-    font-weight: bold;
-    display: none;
-}
-.admin-mode .delete-btn {
-    display: inline;
-}
-
-/* Smooth scroll */
-html {
-    scroll-behavior: smooth;
-}
 
 
 
