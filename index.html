@@ -1,95 +1,54 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Inginous — Events</title>
-
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- QRious (client-side QR generator) -->
-  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inginous v3</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 </head>
 <body>
-  <!-- Sticky navbar -->
-  <header class="navbar">
-    <div class="nav-left">
-      <img src="inginous-logo.png" alt="Inginous logo" class="logo" />
-      <div class="brand">
-        <div class="title">Inginous</div>
-        <div id="userIdPill" class="user-pill" title="Your assigned ID (auto-generated)"></div>
-      </div>
-    </div>
-    <nav class="nav-right">
-      <a href="#about">About</a>
-      <a href="#events">Events</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <!-- Hero -->
-  <section id="hero" class="hero">
-    <div class="hero-inner">
-      <h1>Welcome to Inginous</h1>
-      <p>Engineering team focused on technical & non-technical skills. Browse events, scan QR codes, and join our sessions.</p>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="section">
-    <h2>About</h2>
-    <p>Inginous organizes workshops, talks and hands-on sessions to grow both technical and soft skills.</p>
-  </section>
-
-  <!-- Events -->
-  <section id="events" class="section">
-    <h2>Events</h2>
-    <div id="eventsGrid" class="events-grid" aria-live="polite"></div>
-  </section>
-
-  <!-- Add Event (admin-only; hidden by default) -->
-  <section id="addEventSection" class="modal-panel hidden">
-    <div class="panel">
-      <div class="panel-head">
-        <h3>Add New Event</h3>
-        <button id="closeAdd" class="ghost">Close</button>
-      </div>
-      <form id="eventForm" class="event-form">
-        <label>Title
-          <input id="ev_title" type="text" placeholder="Event title" required />
-        </label>
-        <label>Date & time
-          <input id="ev_datetime" type="datetime-local" required />
-        </label>
-        <label>Location
-          <input id="ev_location" type="text" placeholder="Room / link / city" />
-        </label>
-        <label>Description
-          <textarea id="ev_description" placeholder="Short summary" rows="4"></textarea>
-        </label>
-        <div class="form-row">
-          <button type="submit" class="primary">Save event</button>
-          <button type="button" id="cancelAdd" class="ghost">Cancel</button>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Inginous</div>
+        <div class="links">
+            <a href="#events">Events</a>
+            <button id="viewQRBtn">View My QR</button>
         </div>
-      </form>
+    </nav>
+
+    <!-- Main Content -->
+    <section id="events">
+        <h1>Upcoming Events</h1>
+        <div id="eventList"></div>
+    </section>
+
+    <!-- Login Popup -->
+    <div id="loginPopup" class="popup">
+        <div class="popup-content">
+            <h2>Login</h2>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="text" id="phone" placeholder="Phone Number" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button id="loginBtn">Login</button>
+        </div>
     </div>
-  </section>
 
-  <!-- Blurred modal overlay (for login & event details) -->
-  <div id="overlay" class="overlay hidden"></div>
+    <!-- QR Popup -->
+    <div id="qrPopup" class="popup">
+        <div class="popup-content">
+            <canvas id="qrCode"></canvas>
+            <p>👤 <span id="qrName"></span></p>
+            <p>📧 <span id="qrEmail"></span></p>
+            <p>📞 <span id="qrPhone"></span></p>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </div>
 
-  <!-- Login / Event modal container -->
-  <div id="modal" class="modal hidden" role="dialog" aria-modal="true"></div>
-
-  <!-- Footer -->
-  <footer id="contact" class="footer">
-    <div>© 2025 Inginous</div>
-  </footer>
-
-  <!-- App script -->
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
+
 
 
