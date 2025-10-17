@@ -1,54 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inginous v3</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inginous v3</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="logo">Inginous</div>
-        <div class="links">
-            <a href="#events">Events</a>
-            <button id="viewQRBtn">View My QR</button>
-        </div>
-    </nav>
 
-    <!-- Main Content -->
-    <section id="events">
-        <h1>Upcoming Events</h1>
-        <div id="eventList"></div>
-    </section>
-
-    <!-- Login Popup -->
-    <div id="loginPopup" class="popup">
-        <div class="popup-content">
-            <h2>Login</h2>
-            <input type="text" id="name" placeholder="Full Name" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="text" id="phone" placeholder="Phone Number" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button id="loginBtn">Login</button>
-        </div>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="logo">Inginous</div>
+    <div class="links">
+        <a href="#events">Events</a>
+        <button id="viewQRBtn">View My QR</button>
     </div>
+</nav>
 
-    <!-- QR Popup -->
-    <div id="qrPopup" class="popup">
-        <div class="popup-content">
-            <canvas id="qrCode"></canvas>
-            <p>👤 <span id="qrName"></span></p>
-            <p>📧 <span id="qrEmail"></span></p>
-            <p>📞 <span id="qrPhone"></span></p>
-            <button id="logoutBtn">Logout</button>
-        </div>
+<!-- Events Section -->
+<section id="events">
+    <h1>Upcoming Events</h1>
+    <div id="eventList"></div>
+</section>
+
+<!-- Login Popup -->
+<div id="loginPopup" class="popup">
+    <div class="popup-content">
+        <h2>Login</h2>
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button id="loginBtn">Login</button>
     </div>
+</div>
 
-    <script src="script.js"></script>
+<!-- QR Popup -->
+<div id="qrPopup" class="popup">
+    <div class="popup-content">
+        <canvas id="qrCode"></canvas>
+        <p>👤 <span id="qrName"></span></p>
+        <p>📧 <span id="qrEmail"></span></p>
+        <p>📞 <span id="qrPhone"></span></p>
+        <button id="logoutBtn">Logout</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
+
 
 
 
