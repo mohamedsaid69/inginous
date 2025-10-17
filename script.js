@@ -10,9 +10,13 @@ const qrPhone = document.getElementById('qrPhone');
 const eventList = document.getElementById('eventList');
 const body = document.body;
 
+const adminControls = document.getElementById('adminControls');
+const newEventInput = document.getElementById('newEventInput');
+const addEventBtn = document.getElementById('addEventBtn');
+
 let adminMode = false;
 
-// Check login on page load
+// Check login on load
 window.onload = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     if(!user){
@@ -64,12 +68,17 @@ logoutBtn.onclick = () => {
     location.reload();
 }
 
-// Admin Mode toggle
+// Admin mode toggle (Alt + Z)
 document.addEventListener('keydown', (e) => {
     if(e.altKey && e.code === 'KeyZ'){
         adminMode = !adminMode;
-        if(adminMode) body.classList.add('admin-mode');
-        else body.classList.remove('admin-mode');
+        if(adminMode){
+            body.classList.add('admin-mode');
+            adminControls.style.display = 'block';
+        } else {
+            body.classList.remove('admin-mode');
+            adminControls.style.display = 'none';
+        }
         loadEvents();
     }
 });
@@ -102,6 +111,21 @@ function deleteEvent(index){
     localStorage.setItem('events', JSON.stringify(events));
     loadEvents();
 }
+
+// Add event
+addEventBtn.onclick = () => {
+    const eventName = newEventInput.value.trim();
+    if(eventName){
+        const events = JSON.parse(localStorage.getItem('events')) || [];
+        events.push(eventName);
+        localStorage.setItem('events', JSON.stringify(events));
+        newEventInput.value = '';
+        loadEvents();
+    } else {
+        alert('Please enter an event name!');
+    }
+};
+
 
 
 
