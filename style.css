@@ -1,138 +1,115 @@
-/* --------- base & variables --------- */
-:root{
-  --bg:#071018;
-  --panel:#0b1720;
-  --muted:#9aa9b0;
-  --neon:#66fcf1;
-  --accent:#45a29e;
-  --glass: rgba(102,252,241,0.06);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: radial-gradient(1200px 600px at 10% 10%, rgba(66, 255, 253, 0.03), transparent),
-              linear-gradient(180deg,#071018 0%, #071018 100%);
-  color:#c9d6db;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  scroll-behavior:smooth;
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0a0f1a;
+    color: #fff;
 }
 
-/* ---------- navbar ---------- */
-.navbar{
-  position:sticky;
-  top:0;
-  z-index:1200;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 22px;
-  backdrop-filter: blur(6px);
-  background: linear-gradient(180deg, rgba(4,10,14,0.6), rgba(4,10,14,0.55));
-  border-bottom: 1px solid rgba(102,252,241,0.03);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+/* Navbar */
+.navbar {
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.8);
+    padding: 10px 20px;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+.navbar .logo {
+    font-size: 24px;
+    color: #0ff;
+    font-weight: bold;
+}
+.navbar .links a, .navbar .links button {
+    margin-left: 20px;
+    color: #0ff;
+    background: none;
+    border: 1px solid #0ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.navbar .links a:hover, .navbar .links button:hover {
+    background: #0ff;
+    color: #000;
 }
 
-/* left (logo + brand) */
-.nav-left{display:flex;align-items:center;gap:12px}
-.logo{width:48px;height:48px;object-fit:contain;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
-.brand{display:flex;flex-direction:column}
-.brand .title{font-weight:700;color:var(--neon);font-size:18px;letter-spacing:0.4px}
-.user-pill{
-  font-size:12px;color:var(--muted);background:transparent;margin-top:2px;
-  padding:6px 8px;border-radius:999px;border:1px solid rgba(102,252,241,0.04);
+/* Popup */
+.popup {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+.popup-content {
+    background: #111;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 0 20px #0ff;
+}
+.popup-content input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: none;
+}
+.popup-content button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #0ff;
+    color: #000;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-/* right nav */
-.nav-right{display:flex;gap:18px;align-items:center}
-.nav-right a{
-  text-decoration:none;color:var(--muted);font-weight:600;font-size:14px;padding:6px 8px;border-radius:8px;
-  transition:color .18s, transform .12s;
-}
-.nav-right a:hover{color:var(--neon);transform:translateY(-2px)}
-
-/* ---------- hero ---------- */
-.hero{min-height:62vh;display:flex;align-items:center;justify-content:center;padding:80px 20px 40px}
-.hero-inner{text-align:center;max-width:900px}
-.hero-inner h1{font-size:40px;margin-bottom:12px;color:var(--neon)}
-.hero-inner p{color:var(--muted);font-size:18px;max-width:730px;margin:0 auto}
-
-/* ---------- sections ---------- */
-.section{padding:60px 20px;max-width:1100px;margin:0 auto}
-.section h2{color:var(--neon);font-size:28px;margin-bottom:18px}
-
-/* ---------- events grid & cards ---------- */
-.events-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
-.events-grid .card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:14px;padding:16px;box-shadow:0 8px 30px rgba(2,6,23,0.6);border:1px solid rgba(102,252,241,0.03);
-  display:flex;flex-direction:column;gap:8px;transition:transform .22s,box-shadow .22s;
-}
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.7)}
-.card h3{color:var(--neon);margin:0;font-size:16px}
-.card p{color:var(--muted);margin:0;font-size:14px}
-.card .meta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:var(--muted)}
-.card .actions{display:flex;gap:8px;align-items:center}
-.btn{
-  padding:8px 10px;border-radius:8px;border:0;background:transparent;color:var(--neon);font-weight:700;cursor:pointer;
-  box-shadow: none;
-}
-.btn.secondary{background:rgba(255,255,255,0.02);color:var(--muted);font-weight:600}
-.btn.delete{
-  background:transparent;color:#7fd0e6;border:1px solid rgba(127,208,230,0.08);padding:6px 8px;border-radius:8px;font-weight:700;
-}
-.btn.delete:hover{box-shadow:0 6px 20px rgba(102,252,241,0.06)}
-
-/* QR image */
-.qr-img{width:120px;height:120px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,0.6)}
-
-/* ---------- add-event panel (admin) ---------- */
-.modal-panel{position:fixed;right:24px;top:86px;z-index:1100;max-width:420px}
-.panel{
-  background:linear-gradient(180deg, rgba(12,18,22,0.94), rgba(8,12,14,0.95));
-  border:1px solid rgba(102,252,241,0.04);padding:14px;border-radius:12px;box-shadow:0 24px 60px rgba(3,6,12,0.8)
-}
-.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.panel-head h3{color:var(--neon);margin:0}
-.ghost{background:transparent;border:0;color:var(--muted);cursor:pointer;font-weight:700}
-.primary{background:linear-gradient(90deg,var(--neon),var(--accent));color:#001;font-weight:800;padding:10px 12px;border-radius:8px;border:0}
-.event-form label{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}
-.event-form input,.event-form textarea{width:100%;padding:10px;border-radius:8px;background:#06121a;border:1px solid rgba(102,252,241,0.03);color:#cfeef0;margin-bottom:8px}
-
-/* ---------- overlay & modal ---------- */
-.overlay{
-  position:fixed;inset:0;background:rgba(2,6,10,0.6);backdrop-filter:blur(6px);z-index:1300;transition:opacity .18s
-}
-.modal{
-  position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
-  z-index:1400;max-width:760px;width:94%;border-radius:14px;padding:18px;
-  background:linear-gradient(180deg,#071014, #0b1014);border:1px solid rgba(102,252,241,0.05);
-  box-shadow:0 30px 80px rgba(2,6,23,0.75);color:#cfeef0;opacity:1;
+/* QR Popup */
+#qrCode {
+    margin-bottom: 20px;
 }
 
-/* login box style */
-.login-box h3{color:var(--neon);margin-bottom:8px}
-.input-row{display:flex;gap:8px;align-items:center;margin-top:10px}
-.input-row input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(102,252,241,0.06);background:#071218;color:#cfeef0}
-.login-actions{display:flex;gap:8px;margin-top:12px;align-items:center}
-.small-muted{font-size:13px;color:var(--muted)}
-
-/* access message */
-.access-ok{display:flex;align-items:center;gap:10px;color:#bfffe9;font-weight:800}
-
-/* hidden utility */
-.hidden{display:none}
-
-/* ---------- footer ---------- */
-.footer{padding:28px 20px;text-align:center;color:var(--muted);border-top:1px solid rgba(102,252,241,0.02);margin-top:36px}
-
-/* responsive */
-@media (max-width:720px){
-  .hero-inner h1{font-size:28px}
-  .user-pill{display:none}
-  .modal{padding:12px}
-  .qr-img{width:100px;height:100px}
+/* Event List */
+#eventList {
+    margin: 20px;
 }
+.event-item {
+    background: #111;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-left: 3px solid #0ff;
+    position: relative;
+}
+.delete-btn {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #0ff;
+    cursor: pointer;
+    display: none;
+}
+
+/* Admin Mode */
+.admin-mode .delete-btn {
+    display: inline;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
 
