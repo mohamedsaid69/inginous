@@ -3,59 +3,56 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Inginous v3</title>
+<title>Inginous v2.1 + v3 Features</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- Sticky Navbar -->
 <nav class="navbar">
-    <div class="logo">Inginous</div>
-    <div class="links">
-        <a href="#events">Events</a>
-        <button id="viewQRBtn">View My QR</button>
-    </div>
+  <div class="logo">Inginous</div>
+  <button id="viewQRBtn" class="btn">View My QR</button>
 </nav>
 
-<!-- Events Section -->
-<section id="events">
-    <h1>Upcoming Events</h1>
-    <div id="eventList"></div>
+<!-- User ID Pill -->
+<div id="userIdPill" class="user-pill"></div>
 
-    <!-- Admin Controls -->
-    <div id="adminControls">
-        <input type="text" id="newEventInput" placeholder="New Event Name">
-        <button id="addEventBtn">Add Event</button>
-    </div>
-</section>
+<!-- Events Grid -->
+<div id="eventsGrid"></div>
 
-<!-- Login Popup -->
-<div id="loginPopup" class="popup">
-    <div class="popup-content">
-        <h2>Login</h2>
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="text" id="phone" placeholder="Phone Number" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button id="loginBtn">Login</button>
-    </div>
+<!-- Add Event Panel (hidden until admin) -->
+<div id="addEventSection" class="add-panel hidden">
+  <form id="eventForm">
+    <input id="ev_title" placeholder="Event Title" required>
+    <input id="ev_datetime" type="datetime-local" required>
+    <input id="ev_location" placeholder="Location">
+    <textarea id="ev_description" placeholder="Description"></textarea>
+    <button type="submit" class="btn">Add Event</button>
+    <button type="button" id="closeAdd" class="btn secondary">Close</button>
+    <button type="button" id="cancelAdd" class="btn secondary">Cancel</button>
+  </form>
 </div>
 
+<!-- Overlay & Modal -->
+<div id="overlay" class="hidden"></div>
+<div id="modal" class="hidden"></div>
+
 <!-- QR Popup -->
-<div id="qrPopup" class="popup">
-    <div class="popup-content">
-        <canvas id="qrCode"></canvas>
-        <p>👤 <span id="qrName"></span></p>
-        <p>📧 <span id="qrEmail"></span></p>
-        <p>📞 <span id="qrPhone"></span></p>
-        <button id="logoutBtn">Logout</button>
-    </div>
+<div id="qrPopup" class="hidden">
+  <div class="popup-content">
+    <canvas id="qrCode"></canvas>
+    <p id="qrName">👤 Name:</p>
+    <p id="qrEmail">📧 Email:</p>
+    <p id="qrPhone">📞 Phone:</p>
+    <button id="logoutBtn" class="btn secondary">Logout</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
