@@ -1,9 +1,9 @@
-/* General Styles */
+/* General Body */
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0a0f1a;
-    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0a0f1a, #000);
+    color: #0ff;
 }
 
 /* Navbar */
@@ -13,32 +13,37 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(0,0,0,0.8);
-    padding: 10px 20px;
+    background: rgba(0,0,0,0.85);
+    padding: 12px 25px;
+    box-shadow: 0 0 20px #0ff;
     backdrop-filter: blur(10px);
     z-index: 1000;
 }
 .navbar .logo {
-    font-size: 24px;
-    color: #0ff;
+    font-size: 28px;
     font-weight: bold;
+    text-shadow: 0 0 15px #0ff;
 }
 .navbar .links a, .navbar .links button {
     margin-left: 20px;
     color: #0ff;
-    background: none;
+    background: rgba(0,0,0,0.3);
     border: 1px solid #0ff;
-    padding: 5px 10px;
-    border-radius: 5px;
+    padding: 8px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    text-shadow: 0 0 5px #0ff;
     cursor: pointer;
     transition: 0.3s;
 }
 .navbar .links a:hover, .navbar .links button:hover {
     background: #0ff;
     color: #000;
+    text-shadow: none;
 }
 
-/* Popup */
+/* Popups */
 .popup {
     display: none;
     position: fixed;
@@ -53,56 +58,63 @@ body {
     z-index: 1001;
 }
 .popup-content {
-    background: #111;
-    padding: 30px;
-    border-radius: 10px;
+    background: #0a0f1a;
+    padding: 40px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 0 20px #0ff;
+    box-shadow: 0 0 30px #0ff;
 }
 .popup-content input {
     display: block;
-    margin: 10px auto;
-    padding: 10px;
+    margin: 15px auto;
+    padding: 12px;
     width: 80%;
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
+    background: #111;
+    color: #0ff;
 }
 .popup-content button {
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     background: #0ff;
     color: #000;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
-/* QR Popup */
+/* QR Code */
 #qrCode {
     margin-bottom: 20px;
+    background: #0a0f1a;
+    border-radius: 10px;
 }
 
-/* Event List */
+/* Events List */
 #eventList {
-    margin: 20px;
+    margin: 25px;
 }
 .event-item {
     background: #111;
-    margin-bottom: 10px;
-    padding: 10px;
-    border-left: 3px solid #0ff;
+    margin-bottom: 12px;
+    padding: 15px;
+    border-left: 4px solid #0ff;
+    border-radius: 10px;
     position: relative;
 }
+
+/* Delete Button */
 .delete-btn {
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 15px;
+    top: 15px;
     color: #0ff;
     cursor: pointer;
+    font-weight: bold;
     display: none;
 }
-
-/* Admin Mode */
 .admin-mode .delete-btn {
     display: inline;
 }
@@ -111,5 +123,6 @@ body {
 html {
     scroll-behavior: smooth;
 }
+
 
 
