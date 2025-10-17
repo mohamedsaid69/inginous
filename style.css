@@ -1,0 +1,194 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0b0c10;
+  color: #c5c6c7;
+  line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #1f2833;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 255, 255, 0.15);
+  z-index: 1000;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+
+.brand {
+  font-size: 1.4rem;
+  color: #66fcf1;
+  font-weight: 600;
+}
+
+.nav-links a {
+  margin-left: 1.5rem;
+  text-decoration: none;
+  color: #c5c6c7;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #66fcf1;
+}
+
+/* Hero */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, #0b0c10, #1f2833);
+  padding: 0 1rem;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  color: #66fcf1;
+  margin-bottom: 1rem;
+}
+
+#hero p {
+  max-width: 700px;
+  font-size: 1.1rem;
+  color: #c5c6c7;
+}
+
+/* Sections */
+section {
+  padding: 100px 20px;
+  text-align: center;
+}
+
+section h2 {
+  color: #66fcf1;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+/* Events */
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 20px;
+}
+
+.event-card {
+  background-color: #1f2833;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(102, 252, 241, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(102, 252, 241, 0.4);
+}
+
+.event-card h3 {
+  color: #66fcf1;
+  margin-bottom: 10px;
+}
+
+.event-card p {
+  margin-bottom: 10px;
+}
+
+.event-card .date {
+  color: #45a29e;
+  font-size: 0.9rem;
+}
+
+.qr {
+  margin-top: 15px;
+}
+
+/* Add Event */
+#add-event-section {
+  background-color: #1f2833;
+  border-top: 2px solid #66fcf1;
+  padding: 50px 20px;
+}
+
+#add-event-section form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#add-event-section input,
+#add-event-section textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #45a29e;
+  background-color: #0b0c10;
+  color: #c5c6c7;
+}
+
+#add-event-section button {
+  background-color: #45a29e;
+  border: none;
+  color: #0b0c10;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#add-event-section button:hover {
+  background-color: #66fcf1;
+}
+
+/* Footer */
+footer {
+  padding: 30px;
+  text-align: center;
+  background-color: #1f2833;
+  color: #c5c6c7;
+}
+
+/* Hidden */
+.hidden {
+  display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links a {
+    margin-left: 0.8rem;
+  }
+  #hero h1 {
+    font-size: 2.2rem;
+  }
+}
