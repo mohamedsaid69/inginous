@@ -1,63 +1,95 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inginous | Engineering Team</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Inginous — Events</title>
+
+  <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- QRious (client-side QR generator) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar">
+  <!-- Sticky navbar -->
+  <header class="navbar">
     <div class="nav-left">
-      <img src="inginous-logo.png" alt="Inginous Logo" class="logo" />
-      <span class="brand">Inginous</span>
+      <img src="inginous-logo.png" alt="Inginous logo" class="logo" />
+      <div class="brand">
+        <div class="title">Inginous</div>
+        <div id="userIdPill" class="user-pill" title="Your assigned ID (auto-generated)"></div>
+      </div>
     </div>
-    <div class="nav-links">
+    <nav class="nav-right">
       <a href="#about">About</a>
       <a href="#events">Events</a>
       <a href="#contact">Contact</a>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <!-- Hero -->
-  <section id="hero">
-    <h1>Welcome to Inginous</h1>
-    <p>An engineering team focused on both technical and non-technical skills — here to help you grow.</p>
+  <section id="hero" class="hero">
+    <div class="hero-inner">
+      <h1>Welcome to Inginous</h1>
+      <p>Engineering team focused on technical & non-technical skills. Browse events, scan QR codes, and join our sessions.</p>
+    </div>
   </section>
 
   <!-- About -->
-  <section id="about">
-    <h2>About Us</h2>
-    <p>
-      Inginous is a community of passionate engineers combining creativity and technical expertise.
-      We organize events, workshops, and projects that enhance both hard and soft skills.
-    </p>
+  <section id="about" class="section">
+    <h2>About</h2>
+    <p>Inginous organizes workshops, talks and hands-on sessions to grow both technical and soft skills.</p>
   </section>
 
   <!-- Events -->
-  <section id="events">
-    <h2>Our Events</h2>
-    <div id="event-list" class="event-list"></div>
+  <section id="events" class="section">
+    <h2>Events</h2>
+    <div id="eventsGrid" class="events-grid" aria-live="polite"></div>
   </section>
 
-  <!-- Add Event (Admin Only) -->
-  <section id="add-event-section" class="hidden">
-    <h2>Add New Event</h2>
-    <form id="event-form">
-      <input type="text" id="event-title" placeholder="Event Title" required />
-      <textarea id="event-description" placeholder="Event Description" required></textarea>
-      <input type="date" id="event-date" required />
-      <button type="submit">Add Event</button>
-    </form>
+  <!-- Add Event (admin-only; hidden by default) -->
+  <section id="addEventSection" class="modal-panel hidden">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Add New Event</h3>
+        <button id="closeAdd" class="ghost">Close</button>
+      </div>
+      <form id="eventForm" class="event-form">
+        <label>Title
+          <input id="ev_title" type="text" placeholder="Event title" required />
+        </label>
+        <label>Date & time
+          <input id="ev_datetime" type="datetime-local" required />
+        </label>
+        <label>Location
+          <input id="ev_location" type="text" placeholder="Room / link / city" />
+        </label>
+        <label>Description
+          <textarea id="ev_description" placeholder="Short summary" rows="4"></textarea>
+        </label>
+        <div class="form-row">
+          <button type="submit" class="primary">Save event</button>
+          <button type="button" id="cancelAdd" class="ghost">Cancel</button>
+        </div>
+      </form>
+    </div>
   </section>
+
+  <!-- Blurred modal overlay (for login & event details) -->
+  <div id="overlay" class="overlay hidden"></div>
+
+  <!-- Login / Event modal container -->
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true"></div>
 
   <!-- Footer -->
-  <footer id="contact">
-    <p>© 2025 Inginous. All rights reserved.</p>
+  <footer id="contact" class="footer">
+    <div>© 2025 Inginous</div>
   </footer>
 
+  <!-- App script -->
   <script src="script.js"></script>
 </body>
 </html>
+
 
